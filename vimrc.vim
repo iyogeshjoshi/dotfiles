@@ -1,16 +1,28 @@
 set nocompatible
 
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 call vundle#begin()
 
+" ---- Launch Config -----------------
+call pathogen#infect()
+" call pathogen#runtime_append_all_bundles()
+
 Plugin 'gmarik/Vundle.vim'
 
 " ----- Making Vim look good ------------
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
+Plugin 'sjl/badwolf'
+Plugin 'sjl/gundo.vim'
+Plugin 'rking/ag.vim'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/syntastic'
 
@@ -46,6 +58,7 @@ Bundle 'HTML-AutoCloseTag'
 " Make tmux look like vim-airline (read README for extra instructions)
 "Plugin 'edkolev/tmuxline.vim'
 " All the other syntax plugins I use
+
 Plugin 'ekalinin/Dockerfile.vim'
 "Plugin 'digitaltoad/vim-jade'
 "Plugin 'tpope/vim-liquid'
@@ -54,7 +67,8 @@ Bundle 'nikvdp/ejs-syntax'
 
 call vundle#end()
 
-filetype plugin indent on
+" filetype plugin indent on
+filetype indent on
 
 
 " --- General settings ---
@@ -62,10 +76,37 @@ set backspace=indent,eol,start
 set ruler
 set number
 set showcmd
+set cursorline
 set incsearch
 set hlsearch
+set wildmenu
+set lazyredraw
+set showmatch
 
-syntax on
+set foldenable  " enable folding
+set foldlevelstart=10
+set foldnestmax=10  " 10 nested folds max
+set foldmethod=indent "fold based on indent level
+
+noremap <space> za
+
+" leader = \
+" turn off search highlight press '\ space'
+nnoremap <leader><space> :nohlsearch<CR>
+" Super undo command
+nnoremap <leader>u :GundoToggle<CR>
+" The Silver Searcher Command
+nnoremap <leader>a :Ag
+
+" --------- ctrlp settings --------------
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor -hidden -g ""'
+
+
+" syntax on
+syntax enable
 
 set mouse=a
 
@@ -79,7 +120,8 @@ set background=dark
 "let g:solarized_termcolors=256
 
 " Set the colorscheme
-colorscheme molokai
+" colorscheme molokai
+colorscheme badwolf
 let g:molokai_original = 1
 let g:rehash256 = 1
 
@@ -157,3 +199,43 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 
 "------vim better whitespace settings --------
 highlight ExtraWhitespace ctermbg=033
+
+"------create language specific setting for certain filetype -----------------
+augroup configgroup
+  autocmd!
+  autocmd VimEnter * highlight clear SignColumn
+  autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
+              \:call <SID>StripTrailingWhitespaces()
+  autocmd FileType java setlocal noexpandtab
+  autocmd FileType java setlocal list
+  autocmd FileType java setlocal listchars=tab:+\ ,eol:-
+  autocmd FileType java setlocal formatprg=par\ -w80\ -T4
+  autocmd FileType php setlocal expandtab
+  autocmd FileType php setlocal list
+  autocmd FileType php setlocal listchars=tab:+\ ,eol:-
+  autocmd FileType php setlocal formatprg=par\ -w80\ -T4
+  autocmd FileType ruby setlocal tabstop=2
+  autocmd FileType ruby setlocal shiftwidth=2
+  autocmd FileType ruby setlocal softtabstop=2
+  autocmd FileType ruby setlocal commentstring=#\ %s
+  autocmd FileType python setlocal commentstring=#\ %s
+  autocmd BufEnter *.cls setlocal filetype=java
+  autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+  autocmd BufEnter Makefile setlocal noexpandtab
+  autocmd BufEnter *.sh setlocal tabstop=2
+  autocmd BufEnter *.sh setlocal shiftwidth=2
+  autocmd BufEnter *.sh setlocal softtabstop=2
+augroup END
+
+
+" strips trailing whitespace at the end of files. this
+" is called on buffer write in the autogroup above.
+function! <SID>StripTrailingWhitespaces()
+  " save last search & cursor position
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  let @/=_s
+  call cursor(l, c)
+endfunction
