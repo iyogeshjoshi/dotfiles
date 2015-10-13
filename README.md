@@ -16,6 +16,8 @@ Follow the following steps to configure your vim and bash
     ```
 
 
+* So the final step is just open you editor `$ vim` and execute this command: `:PluginInstall`.
+
 ## Contact me
 Email me on [iyogeshjoshi@gmail.com](mailto:iyogeshjoshi@gmail.com)
 
