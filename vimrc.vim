@@ -64,6 +64,8 @@ Plugin 'ekalinin/Dockerfile.vim'
 "Plugin 'tpope/vim-liquid'
 "Plugin 'cakebaker/scss-syntax.vim'
 Bundle 'nikvdp/ejs-syntax'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpopt/vim-git'
 
 call vundle#end()
 
