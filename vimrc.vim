@@ -64,7 +64,6 @@ Plugin 'ekalinin/Dockerfile.vim'
 "Plugin 'tpope/vim-liquid'
 "Plugin 'cakebaker/scss-syntax.vim'
 Bundle 'nikvdp/ejs-syntax'
-Plugin 'tpope/vim-fugitive'
 Plugin 'tpopt/vim-git'
 
 call vundle#end()
@@ -206,22 +205,6 @@ highlight ExtraWhitespace ctermbg=033
 augroup configgroup
   autocmd!
   autocmd VimEnter * highlight clear SignColumn
-  autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
-              \:call <SID>StripTrailingWhitespaces()
-  autocmd FileType java setlocal noexpandtab
-  autocmd FileType java setlocal list
-  autocmd FileType java setlocal listchars=tab:+\ ,eol:-
-  autocmd FileType java setlocal formatprg=par\ -w80\ -T4
-  autocmd FileType php setlocal expandtab
-  autocmd FileType php setlocal list
-  autocmd FileType php setlocal listchars=tab:+\ ,eol:-
-  autocmd FileType php setlocal formatprg=par\ -w80\ -T4
-  autocmd FileType ruby setlocal tabstop=2
-  autocmd FileType ruby setlocal shiftwidth=2
-  autocmd FileType ruby setlocal softtabstop=2
-  autocmd FileType ruby setlocal commentstring=#\ %s
-  autocmd FileType python setlocal commentstring=#\ %s
-  autocmd BufEnter *.cls setlocal filetype=java
   autocmd BufEnter *.zsh-theme setlocal filetype=zsh
   autocmd BufEnter Makefile setlocal noexpandtab
   autocmd BufEnter *.sh setlocal tabstop=2
@@ -229,15 +212,3 @@ augroup configgroup
   autocmd BufEnter *.sh setlocal softtabstop=2
 augroup END
 
-
-" strips trailing whitespace at the end of files. this
-" is called on buffer write in the autogroup above.
-function! <SID>StripTrailingWhitespaces()
-  " save last search & cursor position
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  %s/\s\+$//e
-  let @/=_s
-  call cursor(l, c)
-endfunction
