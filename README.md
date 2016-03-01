@@ -21,6 +21,6 @@ Follow the following steps to configure your vim and bash
 ## Contact me
 Email me on [iyogeshjoshi@gmail.com](mailto:iyogeshjoshi@gmail.com)
 
-or read my [blogs](http://iyogeshjoshi.github.io)
+or read my [blogs](http://blogs.iyogeshjoshi.com)
 
 and my website is [iYogeshJoshi.com](http://iyogeshjoshi.com)
