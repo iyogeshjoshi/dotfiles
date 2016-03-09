@@ -23,7 +23,9 @@ Plugin 'tomasr/molokai'
 Plugin 'sjl/badwolf'
 Plugin 'sjl/gundo.vim'
 Plugin 'rking/ag.vim'
-Plugin 'bling/vim-airline'
+"Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/syntastic'
 
 
@@ -35,7 +37,6 @@ Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
-Plugin 'scrooloose/nerdcommenter'
 
 " ----- Working with Git ----------------------------------------------
 Plugin 'airblade/vim-gitgutter'
@@ -55,7 +56,7 @@ Plugin 'tpope/vim-surround'
 " Align CSV files at commas, align Markdown tables, and more
 "Plugin 'godlygeek/tabular'
 " Automaticall insert the closing HTML tag
-Bundle 'HTML-AutoCloseTag'
+Plugin 'HTML-AutoCloseTag'
 " Make tmux look like vim-airline (read README for extra instructions)
 "Plugin 'edkolev/tmuxline.vim'
 " All the other syntax plugins I use
@@ -64,8 +65,14 @@ Plugin 'ekalinin/Dockerfile.vim'
 "Plugin 'digitaltoad/vim-jade'
 "Plugin 'tpope/vim-liquid'
 "Plugin 'cakebaker/scss-syntax.vim'
-Bundle 'nikvdp/ejs-syntax'
+Plugin 'nikvdp/ejs-syntax'
 Plugin 'tpopt/vim-git'
+Plugin 'mxw/vim-jsx'
+Plugin 'isruslan/vim-es6'
+
+" Js-beautify
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
 
 call vundle#end()
 
@@ -101,10 +108,14 @@ nnoremap <leader>u :GundoToggle<CR>
 nnoremap <leader>a :Ag
 
 " --------- ctrlp settings --------------
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip        " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe     " Windows
+
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_user_command = 'ag %s -l --nocolor -hidden -g ""'
+let g:ctrlp_user_command = 'find %s -type f'  " MacOS/Linux
 
 
 " syntax on
@@ -137,13 +148,18 @@ set laststatus=2
 "     https://github.com/abertsch/Menlo-for-Powerline
 " download all the .ttf files, double-click on them and click "Install"
 " Finally, uncomment the next line
-"let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 
 " Show PASTE if in paste mode
 let g:airline_detect_paste=1
 
 " Show airline for tabs too
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" ----- JSX Plugin Config -------------------------
+let g:jsx_ext_required = 0
 
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
@@ -151,10 +167,20 @@ nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 " To have NERDTree always open on startup
 let g:nerdtree_tabs_open_on_console_startup = 0
 
+" ----- rking/ag.vim -----
+let g:ag_working_path_mode="r"
 
 " ----- scrooloose/syntastic settings -----
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_warning_symbol = "▲"
+let g:syntastic_always_populate_loc_list = 1
+let g:synstastic_auto_loc_list = 1
+let syntastic_check_on_open = 1
+let g:syntastic_javascript_checkers = ['jsxhint']
 augroup mySyntastic
   au!
   au FileType tex let b:syntastic_mode = "passive"
