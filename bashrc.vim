@@ -113,6 +113,8 @@ fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+#export PATH="/Users/iyogeshjoshi/anaconda3/bin:$PATH"
+export CPATH="/usr/local/opt/dbus/include/dbus-1.0/dbus:$CPATH"
 
 ### vim superman to open man files in vim
 vman(){
@@ -122,3 +124,12 @@ vman(){
         echo "No manual entry for $*"
     fi
 }
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
