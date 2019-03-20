@@ -38,6 +38,7 @@ antigen bundle screen
 antigen bundle ssh-agent
 
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
 
 #antigen theme philips
 #antigen theme jonathan
@@ -48,17 +49,7 @@ function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
 # Python 3 as default alias
 #alias python=python3
-#PS1='%n@%d'
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/iyogeshjoshi/Downloads/google-cloud-sdk/path.zsh.inc ]; then
-  source '/Users/iyogeshjoshi/Downloads/google-cloud-sdk/path.zsh.inc'
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f /Users/iyogeshjoshi/Downloads/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/Users/iyogeshjoshi/Downloads/google-cloud-sdk/completion.zsh.inc'
-fi
+# PS1='%n@%d'
 # Completion for exercism
 if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
   . ~/.config/exercism/exercism_completion.zsh
@@ -66,3 +57,9 @@ fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/iyogeshjoshi/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/iyogeshjoshi/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/iyogeshjoshi/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/iyogeshjoshi/google-cloud-sdk/completion.zsh.inc'; fi

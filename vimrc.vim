@@ -1,21 +1,21 @@
 set nocompatible
-
+set encoding=utf-8
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
 
 filetype off
-
 set rtp+=~/.vim/bundle/Vundle.vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+" runtime bundle/vim-pathogen/autoload/pathogen.vim
 call vundle#begin()
 
 " ---- Launch Config -----------------
 call pathogen#infect()
 " call pathogen#runtime_append_all_bundles()
 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " ----- Making Vim look good ------------
 Plugin 'altercation/vim-colors-solarized'
@@ -23,7 +23,6 @@ Plugin 'tomasr/molokai'
 Plugin 'sjl/badwolf'
 Plugin 'sjl/gundo.vim'
 Plugin 'rking/ag.vim'
-"Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/syntastic'
@@ -39,7 +38,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
 Plugin 'mattn/emmet-vim'
-Plugin 'scroolose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'powerline/powerline'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'Shougo/neocomplete'
@@ -69,11 +68,10 @@ Plugin 'goatslacker/mango.vim'
 " All the other syntax plugins I use
 
 Plugin 'ekalinin/Dockerfile.vim'
-"Plugin 'digitaltoad/vim-jade'
-"Plugin 'tpope/vim-liquid'
-"Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'nikvdp/ejs-syntax'
-Plugin 'tpopt/vim-git'
+Plugin 'pangloss/vim-javascript'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'w0rp/ale'
 Plugin 'mxw/vim-jsx'
 Plugin 'isRuslan/vim-es6'
 
@@ -166,11 +164,55 @@ let g:airline_detect_paste=1
 
 " Show airline for tabs too
 let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " ----- JSX Plugin Config -------------------------
 let g:jsx_ext_required = 0
+
+" ----- vim emmet Config -------------------------
+let g:user_emmet_loader_key='<Tab>'
+let g:user_emmet_settings = {
+\   'javascript.jsx' : {
+\     'extends': 'jsx'
+\   }
+\}
+
+" ---- vim ALE Config ---------------------------
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint','prettier_eslint'],
+\   'typescript': ['eslint','prettier_eslint'],
+\}
+let g:ale_fix_on_save = 1
+" Enable completion where available.
+" This setting must be set before ALE is loaded.
+let g:ale_completion_enabled = 1
+let g:ale_sign_error = '✘'   " Less aggressive than the default '>>'
+let g:ale_sign_warning = '▲'
+let g:ale_lint_on_enter = 0   " Less distracting when opening a new file
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
 
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
@@ -251,4 +293,3 @@ augroup configgroup
   autocmd BufEnter *.sh setlocal shiftwidth=2
   autocmd BufEnter *.sh setlocal softtabstop=2
 augroup END
-
