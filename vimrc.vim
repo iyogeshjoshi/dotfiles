@@ -12,7 +12,7 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 call vundle#begin()
 
 " ---- Launch Config -----------------
-call pathogen#infect()
+" call pathogen#infect()
 " call pathogen#runtime_append_all_bundles()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -27,6 +27,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'joshdick/onedark.vim'
 
 
 " ----- Vim as a programmer's text editor -----------------------------
@@ -68,17 +69,17 @@ Plugin 'goatslacker/mango.vim'
 " All the other syntax plugins I use
 
 Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'nikvdp/ejs-syntax'
-Plugin 'pangloss/vim-javascript'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'w0rp/ale'
-Plugin 'mxw/vim-jsx'
-Plugin 'isRuslan/vim-es6'
+" Plugin 'nikvdp/ejs-syntax'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'leafgarland/typescript-vim'
+Plugin 'dense-analysis/ale'
+" Plugin 'mxw/vim-jsx'
+" Plugin 'isRuslan/vim-es6'
+Plugin 'sheerun/vim-polyglot'
 
 " Js-beautify
 Plugin 'maksimr/vim-jsbeautify'
-Plugin 'einars/js-beautify'
-
+Plugin 'prettier/vim-prettier', { 'do': 'yarn install' }
 " ----- Working with GoLang -----------------------------------------
 Plugin 'fatih/vim-go'
 
@@ -141,11 +142,13 @@ set background=dark
 "let g:solarized_termcolors=256
 
 " Set the colorscheme
+colorscheme onedark
 " colorscheme molokai
-colorscheme badwolf
-let g:molokai_original = 1
-let g:rehash256 = 1
-
+" colorscheme badwolf
+let g:molokai_original=1
+let g:rehash256=1
+let g:onedark_hide_endofbuffer=1
+let g:onedark_terminal_italics=1
 
 " ----- bling/vim-airline settings -----
 " Always show statusbar
@@ -156,6 +159,7 @@ set laststatus=2
 "     https://github.com/abertsch/Menlo-for-Powerline
 " download all the .ttf files, double-click on them and click "Install"
 " Finally, uncomment the next line
+let g:airline_theme='onedark'
 let g:airline_powerline_fonts = 1
 " set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:style=Book*/
 
@@ -183,8 +187,8 @@ let g:user_emmet_settings = {
 " ---- vim ALE Config ---------------------------
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint','prettier_eslint'],
-\   'typescript': ['eslint','prettier_eslint'],
+\   'javascript': ['prettier', 'eslint'],
+\   'typescript': ['prettier', 'eslint'],
 \}
 let g:ale_fix_on_save = 1
 " Enable completion where available.
@@ -217,6 +221,11 @@ nmap <leader>bl :ls<CR>
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
+
+
+" ------ /ale --------
+nmap <F6> <Plugin>(ale_fix)
+
 " To have NERDTree always open on startup
 let g:nerdtree_tabs_open_on_console_startup = 0
 
