@@ -8,17 +8,27 @@ export PATH="$PATH:$GOPATH/bin"
 export PATH="/usr/local/sbin:$PATH" >> ~/.zshrc
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="/Users/iyogeshjoshi/miniconda2/bin:$PATH"
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export ANDROID_SDK_ROOT=$ANDROID_HOME
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 export CUDA_HOME=/usr/local/cuda
 export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
 export PATH="$CUDA_HOME/bin:$PATH"
 export CPATH="$CPATH:/usr/local/opt/dbus/include/dbus-1.0/dbus"
 export fpath=(/usr/local/share/zsh-completions $fpath)
 export GOPATH="$HOME/Documents/Ather/Go"
-export ATHER="$HOME/Documents/Ather"
+export GITHUB="$HOME/Documents/Github"
+export YARA=$GITHUB/Yara
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export GITHUB_TOKEN=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
+export NPM_AUTH_TOKEN=$GITHUB_TOKEN
+export BIT_TOKEN=13ded738-6c9f-48a6-87e8-558f0b47818e
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -63,3 +73,7 @@ if [ -f '/Users/iyogeshjoshi/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/iy
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/iyogeshjoshi/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/iyogeshjoshi/google-cloud-sdk/completion.zsh.inc'; fi
+
+if command -v ngrok &>/dev/null; then
+    eval "$(ngrok completion)"
+fi
